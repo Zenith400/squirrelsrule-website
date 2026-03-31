@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Don't Annoy Squirrel</title>
+    <style>
+        body {
+            background-color: #2c3e;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Arial Black', sans-serif;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .squirrel-box {
+            cursor: pointer;
+            position: relative;
+        }
+
+        img {
+            width: 450px;
+            max-width: 90vw;
+            border: 10px solid #fff;
+            border-radius: 15px;
+            transition: filter 0.2s, transform 0.1s;
+        }
+
+        /* The "Mad" Animation */
+        .mad {
+            animation: shake 0.1s infinite;
+            /* Turns the image reddish and dark */
+            filter: sepia(100%) saturate(300%) hue-rotate(-50deg);
+            border-color: red;
+        }
+
+        @keyframes shake {
+            0% { transform: translate(2px, 2px); }
+            25% { transform: translate(-2px, -2px); }
+            50% { transform: translate(-3px, 1px); }
+            75% { transform: translate(3px, -1px); }
+            100% { transform: translate(1px, 1px); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px #000;
+        }
+
+        .status {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 id="header">THIS IS SQUIRREL</h1>
+    
+    <div class="squirrel-box" id="squirrelContainer">
+        <img id="squirrelImg" 
+             src="https://media.istockphoto.com/id/473012660/photo/grey-squirrel-yawning.jpg?s=612x612&w=0&k=20&c=5zyoQOLrCBtQpJH7U-dIU7y5BJN9DAiGED3t879u2RQ=" 
+             alt="Squirrel">
+    </div>
+
+
+    <p class="status" id="statusText">Status: Peaceful (Do NOT Disturb)</p>
+
+    <audio id="screamSound" src="https://www.soundjay.com/human/sounds/human-scream-01.mp3"></audio>
+
+    <script>
+        const container = document.getElementById('squirrelContainer');
+        const img = document.getElementById('squirrelImg');
+        const header = document.getElementById('header');
+        const status = document.getElementById('statusText');
+        const sound = document.getElementById('screamSound');
+
+        container.addEventListener('click', () => {
+            // Toggle the 'mad' class on the image
+            img.classList.toggle('mad');
+
+            if (img.classList.contains('mad')) {
+                // He's Mad!
+                header.innerText = "SQUIRREL FURIOUS!";
+                header.style.color = "red";
+                status.innerText = "Status: AGITATED";
+                document.body.style.backgroundColor = "#4a0000";
+                sound.currentTime = 0;
+                sound.play();
+            } else {
+                // He's Chill again
+                header.innerText = "THIS IS SQUIRREL";
+                header.style.color = "white";
+                status.innerText = "Status: Peaceful (Do NOT disturb)";
+                document.body.style.backgroundColor = "#2c3e";
+                sound.pause();
+            }
+        });
+    </script>
+
+</body>
+</html>
